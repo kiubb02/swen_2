@@ -13,6 +13,6 @@ public class TransactionReq implements TransactionReqInterface{
     @Override
     public Response handleRequest(Request request) throws SQLException, ParseException, IOException {
         Response res = trans.aquirePackage(request);
-        return null;
+        return res;
     }
 }

@@ -40,6 +40,7 @@ public class TransactionHandler implements TransactionHandlerInterface{
 
             ResultSet res = stmt.executeQuery();
             while (res.next()) {
+                System.out.println(id);
                 id = res.getInt("id");
             }
 
@@ -60,7 +61,11 @@ public class TransactionHandler implements TransactionHandlerInterface{
             Connection con = databaseInterface.getConnection();
             assert con != null;
             //create prepared statement
-            PreparedStatement stmt = con.prepareStatement("UPDATE cards SET user = ? WHERE id_p = ?");
+            PreparedStatement stmt = con.prepareStatement(""" 
+                    UPDATE cards
+                    SET "user" = ?
+                    WHERE id_p = ?
+                    """);
             stmt.setString(1, username);
             stmt.setInt(2, id);
 
@@ -69,7 +74,7 @@ public class TransactionHandler implements TransactionHandlerInterface{
             stmt.close();
             con.close();
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println(e + " hi");
             return false;
         }
 

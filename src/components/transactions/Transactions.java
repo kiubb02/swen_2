@@ -18,16 +18,20 @@ public class Transactions implements TransactionsInterface{
 
     @Override
     public Response aquirePackage(Request request) throws ParseException, SQLException {
-        Response res = null;
         String message = "";
 
         if(this.checkMoney(request.getUsername())){
             //has enough money
-            message = transHandler.buy_package(request.getUsername());
+            message = this.transHandler.buy_package(request.getUsername());
         }
+        System.out.println(message);
         //else bad request
-        if(message.equals("500")) return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " \" You dont have enough Money.\"");
-        if(message.equals("200")) return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " \" Package has been bought and cards added.\"");
+        if(message.equals("500")) {
+            return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " \" You dont have enough Money.\"");
+        }
+        if(message.equals("200")){
+            return new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message);
+        }
 
         return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " \" You dont have enough Money.\"");
     }
