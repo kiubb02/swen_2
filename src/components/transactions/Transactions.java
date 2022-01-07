@@ -30,7 +30,7 @@ public class Transactions implements TransactionsInterface{
             return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " \" You dont have enough Money.\"");
         }
         if(message.equals("200")){
-            return new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message);
+            return new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message + " \" Package aquired.\"");
         }
 
         return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " \" You dont have enough Money.\"");

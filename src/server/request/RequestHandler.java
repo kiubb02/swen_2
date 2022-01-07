@@ -34,12 +34,13 @@ public class RequestHandler implements Runnable{
             Response response;
             Request request = RequestBuilder.buildRequest(this.in);
 
-            if (request.getPathname() == null) {
+            if (request.getPathname() == null || request.getUsername() == null) {
                 response = new Response(
                         HttpStatus.BAD_REQUEST,
                         ContentType.JSON,
                         "[]"
                 );
+
             } else {
                 response = this.app.handleRequest(request);
             }

@@ -9,4 +9,5 @@ import java.sql.SQLException;
 
 public interface cardsInterface {
     public String createCard(String id,String name,String damage) throws ParseException, IOException, SQLException;
+    public Response showCards(Request request) throws SQLException;
 }
