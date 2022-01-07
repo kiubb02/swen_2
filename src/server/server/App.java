@@ -1,6 +1,7 @@
 package server.server;
 
 import components.cards.cardsRequest;
+import components.deck.DeckReq;
 import components.packages.PackageRequests;
 import components.sessions.SessionsRequests;
 import components.transactions.TransactionReq;
@@ -29,6 +30,7 @@ public class App implements ServerApp {
     private final SessionsRequests SessionsReq = new SessionsRequests();
     private final TransactionReq transReq = new TransactionReq();
     private final cardsRequest cardReq = new cardsRequest();
+    private final DeckReq deckReq = new DeckReq();
 
     public App(){
         this.newUser = new Users();
@@ -45,7 +47,7 @@ public class App implements ServerApp {
             case "/sessions" -> res = SessionsReq.handleRequest(request);
             case "/transactions/packages" -> res = transReq.handleRequest(request);
             case "/cards" -> res = cardReq.handleRequest(request);
-            case "/deck" -> System.out.println("Hello Deck");
+            case "/deck" -> res = deckReq.handleRequest(request);
             case "/stats" -> System.out.println("Hello Stats");
             case "/score" -> System.out.println("Hello Score");
             case "/tradings" -> System.out.println("Hello Tradings");
