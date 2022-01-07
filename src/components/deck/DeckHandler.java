@@ -51,4 +51,10 @@ public class DeckHandler implements DeckHandlerInterface{
 
         return message;
     }
+
+    @Override
+    public String updateDeck(String username) {
+        return null;
+    }
+
 }
