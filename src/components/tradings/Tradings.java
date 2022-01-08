@@ -51,7 +51,7 @@ public class Tradings implements TradingsInterface{
             //then trade can be created
             message = this.tdHandler.createTrade(id, card, type, dmg);
             if (message.contains("201")) return new Response(HttpStatus.CREATED, ContentType.JSON, HttpStatus.CREATED.message + " Trading-Deal has been created");
-            if (message.contains("400")) return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " Something didnt't work out");
+            if (message.contains("400")) return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " Something didn't work out");
         }
 
         return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, HttpStatus.INTERNAL_SERVER_ERROR.message);
