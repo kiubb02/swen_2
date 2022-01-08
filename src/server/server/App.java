@@ -41,15 +41,15 @@ public class App implements ServerApp {
         //part req to get main root
 
         switch (req[1]) {
-            case "/users" -> res = this.UserReq.handleRequest(request);
-            case "/packages" -> res = PackageReq.handleRequest(request);
-            case "/sessions" -> res = SessionsReq.handleRequest(request);
-            case "/transactions/packages" -> res = transReq.handleRequest(request);
-            case "/cards" -> res = cardReq.handleRequest(request);
-            case "/deck" -> res = deckReq.handleRequest(request);
-            case "/stats" -> System.out.println("Hello Stats");
-            case "/score" -> System.out.println("Hello Score");
-            case "/tradings" -> System.out.println("Hello Tradings");
+            case "users" -> res = this.UserReq.handleRequest(request);
+            case "packages" -> res = PackageReq.handleRequest(request);
+            case "sessions" -> res = SessionsReq.handleRequest(request);
+            case "transactions" -> res = transReq.handleRequest(request);
+            case "cards" -> res = cardReq.handleRequest(request);
+            case "deck" -> res = deckReq.handleRequest(request);
+            case "stats" -> System.out.println("Hello Stats");
+            case "score" -> System.out.println("Hello Score");
+            case "tradings" -> System.out.println("Hello Tradings");
         }
 
         System.out.println(res);

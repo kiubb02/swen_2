@@ -1,6 +1,7 @@
 package components.users;
 
 import db.databaseHandler;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -54,12 +55,54 @@ public class Users implements UserInterface{
 
     @Override
     public Response editUser(Request request) throws ParseException, SQLException {
-        return null;
+        //for the response
+        String return_status;
+
+        //for the user
+        String username = request.getUsername();
+
+        //get json object
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(request.getBody());
+
+        String name = json.get("Name").toString();
+        String bio = json.get("Bio").toString();
+        String image = json.get("Image").toString();
+
+        return_status = this.userHandler.edit_User(username, name, bio, image);
+        if(return_status.contains("200")){
+            //System.out.println("Your user has been created");
+            return new Response(HttpStatus.CREATED, ContentType.JSON, HttpStatus.CREATED.message + "\"User has been edited\" " );
+        }
+        if(return_status.contains("500")){
+            //System.out.println("Your user already exists");
+            return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + "\"Your User couldnt have been edited\"");
+        }
+
+        return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, HttpStatus.INTERNAL_SERVER_ERROR.message);
     }
 
     @Override
     public Response showUserData(Request request) throws ParseException, SQLException {
-        return null;
+        //for the response
+        String return_status;
+
+        //for the user
+        String username = request.getUsername();
+
+        return_status = this.userHandler.show_User(username);
+        System.out.println(return_status);
+
+        if(return_status.contains("200")){
+            //System.out.println("Your user has been created");
+            return new Response(HttpStatus.CREATED, ContentType.JSON, HttpStatus.CREATED.message + " " + return_status);
+        }
+        if(return_status.contains("404")){
+            //System.out.println("Your user already exists");
+            return new Response(HttpStatus.NOT_FOUND, ContentType.JSON, HttpStatus.NOT_FOUND.message + "\"Your User wasn't found or has no personal Info\"");
+        }
+
+        return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, HttpStatus.INTERNAL_SERVER_ERROR.message);
     }
 
 }
