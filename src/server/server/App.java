@@ -46,7 +46,7 @@ public class App implements ServerApp {
             case "sessions" -> res = SessionsReq.handleRequest(request);
             case "transactions" -> res = transReq.handleRequest(request);
             case "cards" -> res = cardReq.handleRequest(request);
-            case "deck" -> res = deckReq.handleRequest(request);
+            case "deck", "deck?format=plain" -> res = deckReq.handleRequest(request);
             case "stats" -> System.out.println("Hello Stats");
             case "score" -> System.out.println("Hello Score");
             case "tradings" -> System.out.println("Hello Tradings");

@@ -46,8 +46,6 @@ public class RequestBuilder implements RequestBuilderInterface {
                 if(line.startsWith("Authorization")){
                     String[] auth = line.split(" ");
                     request.setAuth(auth[2]);
-                    //System.out.println(request.getAuth());
-                    //get user who created request
                     String[] user = request.getAuth().split("-");
                     request.setUsername(user[0]); //kienboec-mtcgToken ==> kienboec
                 }
