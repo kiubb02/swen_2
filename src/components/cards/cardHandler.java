@@ -38,12 +38,27 @@ public class cardHandler implements cardHandlerInterface {
             Connection con = databaseInterface.getConnection(); //connect to the database
             assert con != null;
             //create prepared statement
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO cards(id, name, damage, id_p) VALUES (?,?,?, ?);");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO cards(id, name, damage, id_p, Elements, Type) VALUES (?,?,?, ?, ?, ?);");
 
             stmt.setString(1, id);
             stmt.setString(2, name);
             stmt.setString(3, damage);
             stmt.setInt(4, id_p);
+            if(name.contains("Water")) {
+                stmt.setString(5, "Water");
+            } else if(name.contains("Regular")) {
+                stmt.setString(5, "Regular");
+            } else if(name.contains("Fire")){
+                stmt.setString(5, "Fire");
+            } else {
+                stmt.setString(5, "none");
+            }
+
+            if(name.contains("Spell")){
+                stmt.setString(6, "Spell");
+            } else {
+                stmt.setString(6, "Monster");
+            }
 
             stmt.execute();
             stmt.close();

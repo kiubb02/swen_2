@@ -4,6 +4,7 @@ import components.cards.cardsRequest;
 import components.deck.DeckReq;
 import components.packages.PackageRequests;
 import components.sessions.SessionsRequests;
+import components.tradings.TradingReq;
 import components.transactions.TransactionReq;
 import components.users.UserRequests;
 import org.json.simple.parser.ParseException;
@@ -28,6 +29,7 @@ public class App implements ServerApp {
     private final TransactionReq transReq = new TransactionReq();
     private final cardsRequest cardReq = new cardsRequest();
     private final DeckReq deckReq = new DeckReq();
+    private final TradingReq tradingReq = new TradingReq();
 
     public App(){
 
@@ -49,7 +51,7 @@ public class App implements ServerApp {
             case "deck", "deck?format=plain" -> res = deckReq.handleRequest(request);
             case "stats" -> System.out.println("Hello Stats");
             case "score" -> System.out.println("Hello Score");
-            case "tradings" -> System.out.println("Hello Tradings");
+            case "tradings" -> res = tradingReq.handleRequest(request);
         }
 
         System.out.println(res);
