@@ -30,6 +30,9 @@ public class Tradings implements TradingsInterface{
 
     @Override
     public Response stageTrading(Request request) throws ParseException, SQLException {
+
+        System.out.println("hi");
+
         //return all available Tradings
         String message = "";
 
@@ -40,7 +43,7 @@ public class Tradings implements TradingsInterface{
         String id = json.get("Id").toString();
         String card = json.get("CardToTrade").toString();
         String type = json.get("Type").toString();
-        int dmg = (int) json.get("MinimumDamage");
+        int dmg = Integer.parseInt(json.get("MinimumDamage").toString());
 
         //check if user owns this card
         if(this.tdHandler.validateOwnership(request.getUsername())) {
@@ -59,7 +62,8 @@ public class Tradings implements TradingsInterface{
         String message = "";
 
         String[] split = request.getPathname().split("/");
-        String trading = split[3];
+        String trading = split[2];
+        System.out.println(trading);
 
         if(this.tdHandler.removeTrade(trading)){
             return new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message + " Trading-Deal has been removed");
