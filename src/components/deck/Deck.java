@@ -26,7 +26,7 @@ public class Deck implements DeckInterface{
         String username = request.getUsername(); //get logged in user
         String message = "";
 
-        if(request.getPathname().equals("")){
+        if(request.getPathname().contains("plain")){
             message = this.deckHandler.getCardsofDeckPlain(username);
         } else {
             message = this.deckHandler.getCardsofDeck(username);

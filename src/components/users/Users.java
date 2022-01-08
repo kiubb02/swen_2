@@ -52,4 +52,14 @@ public class Users implements UserInterface{
         return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, HttpStatus.INTERNAL_SERVER_ERROR.message);
     }
 
+    @Override
+    public Response editUser(Request request) throws ParseException, SQLException {
+        return null;
+    }
+
+    @Override
+    public Response showUserData(Request request) throws ParseException, SQLException {
+        return null;
+    }
+
 }

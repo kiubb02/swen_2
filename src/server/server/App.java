@@ -22,9 +22,6 @@ import java.sql.SQLException;
 
 public class App implements ServerApp {
 
-    private final Users newUser;
-    private final Packages newPackage;
-
     private final UserRequests UserReq = new UserRequests();
     private final PackageRequests PackageReq = new PackageRequests();
     private final SessionsRequests SessionsReq = new SessionsRequests();
@@ -33,21 +30,23 @@ public class App implements ServerApp {
     private final DeckReq deckReq = new DeckReq();
 
     public App(){
-        this.newUser = new Users();
-        this.newPackage = new Packages();
+
     }
 
     @Override
     public Response handleRequest(Request request) throws ParseException, SQLException, IOException {
         Response res = null;
 
-        switch (request.getPathname()) {
+        String[] req = request.getPathname().split("/");
+        //part req to get main root
+
+        switch (req[1]) {
             case "/users" -> res = this.UserReq.handleRequest(request);
             case "/packages" -> res = PackageReq.handleRequest(request);
             case "/sessions" -> res = SessionsReq.handleRequest(request);
             case "/transactions/packages" -> res = transReq.handleRequest(request);
             case "/cards" -> res = cardReq.handleRequest(request);
-            case "/deck", "/deck?format=plain" -> res = deckReq.handleRequest(request);
+            case "/deck" -> res = deckReq.handleRequest(request);
             case "/stats" -> System.out.println("Hello Stats");
             case "/score" -> System.out.println("Hello Score");
             case "/tradings" -> System.out.println("Hello Tradings");

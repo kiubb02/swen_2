@@ -15,6 +15,14 @@ public class UserRequests implements UserRequestsInterface{
 
     @Override
     public Response handleRequest(Request request) throws SQLException, ParseException {
-        return this.newUser.createUser(request);
+        Response res = null;
+
+        switch(request.getMethod()){
+            case "POST" -> res = this.newUser.createUser(request);
+            case "PUT" -> res = this.newUser.editUser(request);
+            case "GET" -> res = this.newUser.showUserData(request);
+        }
+
+        return res;
     }
 }

@@ -9,5 +9,7 @@ import java.sql.SQLException;
 public interface UserInterface {
 
     public Response createUser(Request request) throws ParseException, SQLException;
+    public Response editUser(Request request) throws ParseException, SQLException;
+    public Response showUserData(Request request) throws ParseException, SQLException;
 
 }
