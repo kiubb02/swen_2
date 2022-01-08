@@ -22,11 +22,11 @@ public class Users implements UserInterface{
     //------------ CREATE USER
     public Response createUser(Request request) throws ParseException, SQLException {
         //for the response
-        String return_status = " ";
+        String return_status;
 
         //for the user
-        String username = " ";
-        String password = " ";
+        String username;
+        String password;
 
         //create json object
         JSONParser parser = new JSONParser();

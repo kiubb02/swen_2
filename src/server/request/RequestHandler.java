@@ -34,7 +34,7 @@ public class RequestHandler implements Runnable{
             Response response;
             Request request = RequestBuilder.buildRequest(this.in);
 
-            if (request.getPathname() == null || request.getUsername() == null) {
+            if (request.getPathname() == null) {
                 response = new Response(
                         HttpStatus.BAD_REQUEST,
                         ContentType.JSON,

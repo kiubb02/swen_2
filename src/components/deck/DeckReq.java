@@ -15,6 +15,7 @@ public class DeckReq implements DeckReqInterface{
     public Response handleRequest(Request request) throws ParseException, IOException, SQLException {
         Response res = null;
 
+
         switch(request.getMethod()){
             case "GET" -> res = this.deck.showDecks(request);
             case "PUT" -> res = this.deck.createDeck(request);

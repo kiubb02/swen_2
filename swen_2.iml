@@ -7,10 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="fasterxml.jackson.datatype.json" level="project" />
     <orderEntry type="library" exported="" name="postgresql" level="project" />
     <orderEntry type="library" name="googlecode.json.simple" level="project" />
-    <orderEntry type="library" name="jackson.asl" level="project" />
-    <orderEntry type="library" name="jackson.lgpl" level="project" />
+    <orderEntry type="library" name="fasterxml.jackson.datatype.json" level="project" />
   </component>
 </module>

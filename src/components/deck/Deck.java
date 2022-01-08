@@ -1,6 +1,9 @@
 package components.deck;
 
-import org.codehaus.jackson.map.JsonNode;
+import org.codehaus.jackson.*;
+import org.codehaus.jackson.map.ObjectMapper;
+
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,6 +13,7 @@ import server.http.ContentType;
 import server.http.HttpStatus;
 import server.request.Request;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Deck implements DeckInterface{
@@ -20,33 +24,38 @@ public class Deck implements DeckInterface{
     public Response showDecks(Request request) {
 
         String username = request.getUsername(); //get logged in user
-        String message = this.deckHandler.getCardsofDeck(username);
+        String message = "";
+
+        if(request.getPathname().equals("")){
+            message = this.deckHandler.getCardsofDeckPlain(username);
+        } else {
+            message = this.deckHandler.getCardsofDeck(username);
+        }
         if(message.contains("200")) return new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message + " \" " + message + " \"");
-        if(message.contains("404")) return new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message + " \" Your Deck is empty \"");
+        if(message.contains("404")) return new Response(HttpStatus.NOT_FOUND, ContentType.JSON, HttpStatus.NOT_FOUND.message + " \" Your Deck is empty \"");
 
         return new Response(HttpStatus.INTERNAL_SERVER_ERROR, ContentType.JSON, HttpStatus.BAD_REQUEST.message);
     }
 
     @Override
-    public Response createDeck(Request request) throws ParseException {
+    public Response createDeck(Request request) throws ParseException, IOException {
 
-        //first check if we have enough cards
-        //iterate through it and create json objects
-        //if(size() != 4) return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message);
 
-        /*
+        String message = "";
+
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(request.getBody());
 
+        if(node.size() != 4) return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message);
+
+
         //go through them and update
-        for (int i = 0; i < json.size(); i++) {
-
+        for (int i = 0; i < node.size(); i++) {
+            message = this.deckHandler.updateDeck(request.getUsername(), node.get(i).getValueAsText());
         }
-        */
 
 
-        String username = request.getUsername(); //get logged in user
-        String message = this.deckHandler.getCardsofDeck(username);
         if(message.contains("200")) return new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message + " \" " + message + " \"");
         if(message.contains("404")) return new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message + " \" Your Deck is empty \"");
 

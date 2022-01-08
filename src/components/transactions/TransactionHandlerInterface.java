@@ -10,4 +10,6 @@ public interface TransactionHandlerInterface {
     public int getLatestPackage() throws SQLException;
     public boolean aquireCards(String username, int id);
     public boolean deleteBought(int id);
+    public int getCoins(String username) throws SQLException;
+    public boolean updateCoins(int coins, String username) throws SQLException;
 }
