@@ -4,6 +4,7 @@ import org.json.simple.parser.ParseException;
 import server.Response;
 import server.request.Request;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class TradingReq implements TradingReqInterface{
@@ -12,7 +13,7 @@ public class TradingReq implements TradingReqInterface{
 
 
     @Override
-    public Response handleRequest(Request request) throws SQLException, ParseException {
+    public Response handleRequest(Request request) throws SQLException, ParseException, IOException {
         Response res = null;
 
         switch(request.getMethod()){

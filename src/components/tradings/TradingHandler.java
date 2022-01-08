@@ -58,9 +58,11 @@ public class TradingHandler implements TradingHandlerInterface{
     }
 
     @Override
-    public String createTrade(String id, String card, String type, int dmg) throws SQLException {
+    public String createTrade(String id, String card, String type, int dmg, String username) throws SQLException {
 
         String message = "201";
+
+        System.out.println(type);
 
         try {
             Connection con = databaseInterface.getConnection(); //connect to the database
@@ -68,8 +70,8 @@ public class TradingHandler implements TradingHandlerInterface{
             //create prepared statement
             PreparedStatement stmt = con.prepareStatement("""
                     INSERT INTO tradings
-                    ("tradingID","CardToTrade","Type","MinimumDamage")
-                    VALUES (?,?,?,?);
+                    ("tradingID","CardToTrade","Type","MinimumDamage","creator")
+                    VALUES (?,?,?,?,?);
                     
                     """);
 
@@ -77,6 +79,7 @@ public class TradingHandler implements TradingHandlerInterface{
             stmt.setString(2, card);
             stmt.setString(3, type);
             stmt.setInt(4, dmg);
+            stmt.setString(5, username);
 
 
             stmt.execute();
@@ -120,7 +123,7 @@ public class TradingHandler implements TradingHandlerInterface{
     }
 
     @Override
-    public boolean validateOwnership(String username) throws SQLException {
+    public boolean validateOwnership(String username, String card) throws SQLException {
 
         try {
             Connection con = databaseInterface.getConnection(); //connect to the database
@@ -129,10 +132,12 @@ public class TradingHandler implements TradingHandlerInterface{
             PreparedStatement stmt = con.prepareStatement("""
                     SELECT *
                     FROM cards
-                    WHERE "user" = ?
+                    WHERE "user" = ? AND deck = ? AND "id" = ?
                     """);
 
             stmt.setString(1, username);
+            stmt.setBoolean(2, false); //deck cards cannot be traded
+            stmt.setString(3, card);
 
             ResultSet res = stmt.executeQuery();
 
@@ -152,5 +157,164 @@ public class TradingHandler implements TradingHandlerInterface{
         //if user already exists change message
 
         return true;
+    }
+
+    @Override
+    public String tradeCards(String username, String cardName, String tradeNr) {
+        String message = "201";
+
+        //get creatore to give them new card
+        String creator = checkTradeCreator(tradeNr);
+        //get the CardToTrade
+        String CardToChange = getCardToChange(tradeNr);
+
+        //trade the cards
+        message = changeOwnership(creator, cardName);
+        System.out.println(message);
+        message = changeOwnership(username, CardToChange);
+        System.out.println(message);
+
+        //delete the trade
+        if(message.equals("201")) message = deleteTrade(tradeNr);
+
+        System.out.println(message);
+
+        return message;
+    }
+
+    @Override
+    public String checkTradeCreator(String tradeNr) {
+        String user = "";
+
+        try {
+            Connection con = databaseInterface.getConnection(); //connect to the database
+            assert con != null;
+            //create prepared statement
+            PreparedStatement stmt = con.prepareStatement("""
+                    SELECT creator
+                    FROM tradings
+                    WHERE "tradingID" = ?
+                    """);
+
+            stmt.setString(1,tradeNr);
+
+            ResultSet res = stmt.executeQuery();
+
+            //check if empty
+            //return 404
+            if(!res.isBeforeFirst()){
+                return "";
+            }
+
+            while(res.next()){
+                user = res.getString("creator");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            return "";
+        }
+
+        //if user already exists change message
+
+        return user;
+    }
+
+
+
+    @Override
+    public String changeOwnership(String username, String cardname) {
+        String message = "201";
+
+        try {
+            Connection con = databaseInterface.getConnection(); //connect to the database
+            assert con != null;
+            //create prepared statement
+            PreparedStatement stmt = con.prepareStatement("""
+                    UPDATE cards
+                    SET "user" = ?
+                    WHERE "id" = ?;
+                    """);
+
+            stmt.setString(1, username);
+            stmt.setString(2, cardname); //deck cards cannot be traded
+
+            stmt.execute();
+
+
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            message = "404";
+        }
+        return message;
+    }
+
+    @Override
+    public String getCardToChange(String tradeNr) {
+        String card = "";
+
+        try {
+            Connection con = databaseInterface.getConnection(); //connect to the database
+            assert con != null;
+            //create prepared statement
+            PreparedStatement stmt = con.prepareStatement("""
+                    SELECT "CardToTrade"
+                    FROM tradings
+                    WHERE "tradingID" = ?
+                    """);
+
+            stmt.setString(1,tradeNr);
+
+            ResultSet res = stmt.executeQuery();
+
+            //check if empty
+            //return 404
+            if(!res.isBeforeFirst()){
+                return "";
+            }
+
+            while(res.next()){
+                card = res.getString("CardToTrade");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            return "";
+        }
+
+        //if user already exists change message
+
+        return card;
+    }
+
+    @Override
+    public String deleteTrade(String tradeNr) {
+        String message = "201";
+        //update the package here
+        try {
+            Connection con = databaseInterface.getConnection();
+            assert con != null;
+            //create prepared statement
+            PreparedStatement stmt = con.prepareStatement("""
+                    DELETE FROM tradings
+                    WHERE "tradingID" = ?;
+                    """);
+            stmt.setString(1, tradeNr);
+
+            stmt.execute();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            message = "400";
+        }
+
+        return message;
     }
 }
