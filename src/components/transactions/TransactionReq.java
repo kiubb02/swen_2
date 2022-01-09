@@ -1,5 +1,6 @@
 package components.transactions;
 
+import components.RequestHandlerInterface;
 import org.json.simple.parser.ParseException;
 import server.Response;
 import server.request.Request;
@@ -7,7 +8,7 @@ import server.request.Request;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class TransactionReq implements TransactionReqInterface{
+public class TransactionReq implements RequestHandlerInterface {
     private final Transactions trans = new Transactions();
 
     @Override

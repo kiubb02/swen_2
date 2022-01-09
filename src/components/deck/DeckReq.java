@@ -1,5 +1,6 @@
 package components.deck;
 
+import components.RequestHandlerInterface;
 import org.json.simple.parser.ParseException;
 import server.Response;
 import server.request.Request;
@@ -7,7 +8,7 @@ import server.request.Request;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class DeckReq implements DeckReqInterface{
+public class DeckReq implements RequestHandlerInterface {
 
     private final Deck deck = new Deck();
 
