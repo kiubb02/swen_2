@@ -40,7 +40,6 @@ public class TradingHandler implements TradingHandlerInterface{
                 CardToTrade = res.getString("CardToTrade");
                 Type = res.getString("Type");
                 dmg = res.getInt("MinimumDamage");
-
             }
 
             message += "\n{\"ID\":\"" + id + "\",\"CardToTrade\":\"" + CardToTrade + "\",\"Type\":\"" + Type + "\",\"MinimumDamage\":\"" + dmg + "\"}";

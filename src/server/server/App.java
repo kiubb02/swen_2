@@ -1,5 +1,6 @@
 package server.server;
 
+import components.RequestHandlerInterface;
 import components.cards.cardsRequest;
 import components.deck.DeckReq;
 import components.packages.PackageRequests;
