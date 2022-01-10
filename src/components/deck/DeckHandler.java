@@ -12,6 +12,11 @@ public class DeckHandler implements DeckHandlerInterface{
     public String getCardsofDeck(String username) {
         String message = "200";
 
+        String Name = "";
+        String Dmg = "";
+        String Element = "";
+        String Type = "";
+
         try {
             Connection con = databaseInterface.getConnection(); //connect to the database
             assert con != null;
@@ -37,8 +42,13 @@ public class DeckHandler implements DeckHandlerInterface{
 
             //else go through all the results and save
             while(res.next()){
-                message += res.getString("name").toString() + " " + res.getString("damage") + " \n";
+                Name = res.getString("name");
+                Dmg = res.getString("damage");
+                Element = res.getString("Elements");
+                Type = res.getString("Type");
             }
+
+            message += "\n{\"Name\":\"" + Name + "\",\"Damage\":\"" + Dmg + "\",\"Element\":\"" + Element + "\",\"Type\":\"" + Type + "\"}";
 
             stmt.close();
             con.close();
@@ -97,38 +107,84 @@ public class DeckHandler implements DeckHandlerInterface{
     }
 
     @Override
-    public String updateDeck(String username, String card_id) {
-        String message = "200";
-
+    public boolean checkOwner(String username, String card_id) {
         try {
             Connection con = databaseInterface.getConnection(); //connect to the database
             assert con != null;
             //create prepared statement
             PreparedStatement stmt = con.prepareStatement("""
-                    UPDATE cards
-                    SET deck = ?
+                    SELECT *
+                    FROM cards
                     WHERE "user" = ?
                     AND
                     "id" = ?
                     """);
 
-            stmt.setBoolean(1, true);
-            stmt.setString(2, username);
-            stmt.setString(3, card_id);
+            stmt.setString(1, username);
+            stmt.setString(2, card_id);
 
-            stmt.execute();
+            ResultSet res = stmt.executeQuery();
+
+            //check if empty
+            //return 404
+            if(!res.isBeforeFirst()){
+                return false;
+            }
 
 
             stmt.close();
             con.close();
         } catch (SQLException e) {
             System.out.println(e);
-            message = "500";
+            return false;
         }
+
+        //if user already exists change message
+
+        return true;
+    }
+
+    @Override
+    public String updateDeck(String username, String card_id) {
+        String message = "200";
+
+        //first check if user owns cards
+        Boolean checked = this.checkOwner(username, card_id);
+
+                if(checked) {
+                    try {
+                        Connection con = databaseInterface.getConnection(); //connect to the database
+                        assert con != null;
+                        //create prepared statement
+                        PreparedStatement stmt = con.prepareStatement("""
+                                UPDATE cards
+                                SET deck = ?
+                                WHERE "user" = ?
+                                AND
+                                "id" = ?
+                                """);
+
+                        stmt.setBoolean(1, true);
+                        stmt.setString(2, username);
+                        stmt.setString(3, card_id);
+
+                        stmt.execute();
+
+
+                        stmt.close();
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e);
+                        message = "500";
+                    }
+                } else {
+                    message = "400";
+                }
 
         //if user already exists change message
 
         return message;
     }
+
 
 }

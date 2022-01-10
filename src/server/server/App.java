@@ -40,19 +40,12 @@ public class App implements ServerApp {
     @Override
     public Response handleRequest(Request request) throws ParseException, SQLException, IOException {
         Response res = null;
-        boolean authorized = true;
 
         String[] req = request.getPathname().split("/");
         //part req to get main root
+        System.out.println(req.length);
 
-        //authorization set?
-        if(!request.getUsername().equals("")){
-            if(auth.checkToken(request.getUsername())){
-                authorized = true;
-            }else{
-                authorized = false;
-            }
-        }
+        boolean authorized = auth.checkUser(request);
 
         if(authorized) { //if token is correct we can continue
 
@@ -67,6 +60,8 @@ public class App implements ServerApp {
                 case "score" -> System.out.println("Hello Score");
                 case "tradings" -> res = this.tradingReq.handleRequest(request);
             }
+        } else {
+            return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message);
         }
 
         System.out.println(res);

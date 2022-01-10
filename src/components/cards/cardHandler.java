@@ -79,6 +79,10 @@ public class cardHandler implements cardHandlerInterface {
     public String getUserCards(String username) throws SQLException {
 
         String message = "200";
+        String Name = "";
+        String Dmg = "";
+        String Element = "";
+        String Type = "";
 
         try {
             Connection con = databaseInterface.getConnection(); //connect to the database
@@ -101,8 +105,13 @@ public class cardHandler implements cardHandlerInterface {
 
             //else go through all the results and save
             while(res.next()){
-                message += res.getString("name").toString() + " " + res.getString("damage") + "\n";
+                Name = res.getString("name");
+                Dmg = res.getString("damage");
+                Element = res.getString("Elements");
+                Type = res.getString("Type");
             }
+
+            message += "\n{\"Name\":\"" + Name + "\",\"Damage\":\"" + Dmg + "\",\"Element\":\"" + Element + "\",\"Type\":\"" + Type + "\"}";
 
             stmt.close();
             con.close();
