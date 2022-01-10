@@ -163,7 +163,7 @@ public class TradingHandler implements TradingHandlerInterface{
     public String tradeCards(String username, String cardName, String tradeNr) {
         String message = "201";
 
-        //get creatore to give them new card
+        //get creator to give them new card
         String creator = checkTradeCreator(tradeNr);
         //get the CardToTrade
         String CardToChange = getCardToChange(tradeNr);

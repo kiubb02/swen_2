@@ -8,7 +8,7 @@ public class Request implements RequestInterface{
     private Integer contentLength;
     private String body = "";
     private String auth;
-    private String username;
+    private String username = "";
 
     public String getPathname() {
         return this.pathname;
