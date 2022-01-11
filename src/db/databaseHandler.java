@@ -45,7 +45,7 @@ public class databaseHandler {
             Connection con = databaseInterface.getConnection(); //connect to the database
             assert con != null;
             //create prepared statement
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO cards(id, name, damage, id_p) VALUES (?,?,?, ?);");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO cardsImpl(id, name, damage, id_p) VALUES (?,?,?, ?);");
 
             stmt.setString(1, id);
             stmt.setString(2, name);

@@ -7,7 +7,7 @@ import server.Response;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public interface PackageInterface {
+public interface Package {
 
     public Response createPackage(Request request) throws ParseException, IOException, SQLException;
 }

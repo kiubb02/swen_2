@@ -8,10 +8,10 @@ import server.request.Request;
 import java.sql.SQLException;
 
 public class UserRequests implements RequestHandlerInterface {
-    private final Users newUser;
+    private final UserImpl newUser;
 
     public UserRequests() {
-        this.newUser = new Users();
+        this.newUser = new UserImpl();
     }
 
     @Override

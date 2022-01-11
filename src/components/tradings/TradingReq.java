@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class TradingReq implements RequestHandlerInterface {
 
-    private final Tradings newTrading = new Tradings();
+    private final TradingsImpl newTrading = new TradingsImpl();
 
 
     @Override

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class PackageRequests implements RequestHandlerInterface {
-    private final Packages newPackage = new Packages();
+    private final PackagesImpl newPackage = new PackagesImpl();
 
     @Override
     public Response handleRequest(Request request) throws SQLException, ParseException, IOException {

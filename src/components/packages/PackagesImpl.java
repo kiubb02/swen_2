@@ -1,7 +1,6 @@
 package components.packages;
 
-import components.cards.cards;
-import db.databaseHandler;
+import components.cards.cardsImpl;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,14 +13,14 @@ import server.http.HttpStatus;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class Packages implements PackageInterface{
+public class PackagesImpl implements Package {
     //public databaseHandler dbHandler;
-    public PackageHandler packageHandler;
-    public cards Card;
+    public PackageHandlerImpl packageHandlerImpl;
+    public cardsImpl Card;
 
-    public Packages(){
-        this.packageHandler = new PackageHandler();
-        this.Card = new cards();
+    public PackagesImpl(){
+        this.packageHandlerImpl = new PackageHandlerImpl();
+        this.Card = new cardsImpl();
     }
 
     // ---- CREATE PACKAGES
@@ -42,7 +41,7 @@ public class Packages implements PackageInterface{
             JSONArray json = (JSONArray) parser.parse(request.getBody());
 
             //create a Package
-            return_status = this.packageHandler.createPackage();
+            return_status = this.packageHandlerImpl.createPackage();
             if(return_status.equals("400")){
                 //System.out.println("Package couldn't have been created");
                 return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " \"Package couldn't have been created\"");

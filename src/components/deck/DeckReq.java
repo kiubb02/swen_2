@@ -10,15 +10,15 @@ import java.sql.SQLException;
 
 public class DeckReq implements RequestHandlerInterface {
 
-    private final Deck deck = new Deck();
+    private final DeckImpl deckImpl = new DeckImpl();
 
     @Override
     public Response handleRequest(Request request) throws ParseException, IOException, SQLException {
         Response res = null;
 
         switch(request.getMethod()){
-            case "GET" -> res = this.deck.showDecks(request);
-            case "PUT" -> res = this.deck.createDeck(request);
+            case "GET" -> res = this.deckImpl.showDecks(request);
+            case "PUT" -> res = this.deckImpl.createDeck(request);
         }
 
         return res;

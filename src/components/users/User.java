@@ -6,7 +6,7 @@ import server.Response;
 
 import java.sql.SQLException;
 
-public interface UserInterface {
+public interface User {
 
     public Response createUser(Request request) throws ParseException, SQLException;
     public Response editUser(Request request) throws ParseException, SQLException;

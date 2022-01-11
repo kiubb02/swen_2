@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class TransactionReq implements RequestHandlerInterface {
-    private final Transactions trans = new Transactions();
+    private final TransactionsImpl trans = new TransactionsImpl();
 
     @Override
     public Response handleRequest(Request request) throws SQLException, ParseException, IOException {

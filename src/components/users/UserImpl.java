@@ -1,7 +1,5 @@
 package components.users;
 
-import db.databaseHandler;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -12,12 +10,12 @@ import server.http.HttpStatus;
 
 import java.sql.SQLException;
 
-public class Users implements UserInterface{
+public class UserImpl implements User {
     //public databaseHandler dbHandler;
-    public UserHandler userHandler;
+    public UserHandlerImpl userHandlerImpl;
 
-    public Users(){
-        this.userHandler = new UserHandler();
+    public UserImpl(){
+        this.userHandlerImpl = new UserHandlerImpl();
     }
 
     //------------ CREATE USER
@@ -39,7 +37,7 @@ public class Users implements UserInterface{
 
 
         //call function to connect to database
-        return_status = this.userHandler.register_User(username, password);
+        return_status = this.userHandlerImpl.register_User(username, password);
         if(return_status.equals("201")){
             //System.out.println("Your user has been created");
             return new Response(HttpStatus.CREATED, ContentType.JSON, HttpStatus.CREATED.message + " \"Your user has been created\"");
@@ -69,7 +67,7 @@ public class Users implements UserInterface{
         String bio = json.get("Bio").toString();
         String image = json.get("Image").toString();
 
-        return_status = this.userHandler.edit_User(username, name, bio, image);
+        return_status = this.userHandlerImpl.edit_User(username, name, bio, image);
         if(return_status.contains("200")){
             //System.out.println("Your user has been created");
             return new Response(HttpStatus.CREATED, ContentType.JSON, HttpStatus.CREATED.message + "\"User has been edited\" " );
@@ -90,7 +88,7 @@ public class Users implements UserInterface{
         //for the user
         String username = request.getUsername();
 
-        return_status = this.userHandler.show_User(username);
+        return_status = this.userHandlerImpl.show_User(username);
         System.out.println(return_status);
 
         if(return_status.contains("200")){

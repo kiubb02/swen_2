@@ -1,6 +1,5 @@
 package server.server;
 
-import components.RequestHandlerInterface;
 import components.cards.cardsRequest;
 import components.deck.DeckReq;
 import components.packages.PackageRequests;
@@ -17,8 +16,6 @@ import server.request.Request;
 import server.Response;
 
 //Components
-import components.users.Users;
-import components.packages.Packages;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -44,7 +41,6 @@ public class App implements ServerApp {
 
         String[] req = request.getPathname().split("/");
         //part req to get main root
-        System.out.println(req.length);
 
         boolean authorized = auth.checkUser(request);
 
@@ -55,7 +51,7 @@ public class App implements ServerApp {
                 case "packages" -> res = this.PackageReq.handleRequest(request);
                 case "sessions" -> res = this.SessionsReq.handleRequest(request);
                 case "transactions" -> res = this.transReq.handleRequest(request);
-                case "cards" -> res = this.cardReq.handleRequest(request);
+                case "cardsImpl" -> res = this.cardReq.handleRequest(request);
                 case "deck", "deck?format=plain" -> res = this.deckReq.handleRequest(request);
                 case "stats" -> System.out.println("Hello Stats");
                 case "score" -> System.out.println("Hello Score");
@@ -64,8 +60,6 @@ public class App implements ServerApp {
         } else {
             return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message);
         }
-
-        System.out.println(res);
 
         return res;
     }
