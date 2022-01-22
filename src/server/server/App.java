@@ -53,8 +53,11 @@ public class App implements ServerApp {
                 case "transactions" -> res = this.transReq.handleRequest(request);
                 case "cardsImpl" -> res = this.cardReq.handleRequest(request);
                 case "deck", "deck?format=plain" -> res = this.deckReq.handleRequest(request);
+                // Battle Logic Start
                 case "stats" -> System.out.println("Hello Stats");
                 case "score" -> System.out.println("Hello Score");
+                case "battles" -> System.out.println("Hello Battle");
+                //Battle Logic End
                 case "tradings" -> res = this.tradingReq.handleRequest(request);
             }
         } else {
