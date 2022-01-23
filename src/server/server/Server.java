@@ -5,11 +5,14 @@ import server.request.RequestHandler;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server implements ServerInterface{
     private ServerSocket serverSocket;
     private int port;
     private ServerApp app;
+    private ExecutorService pool = Executors.newSingleThreadExecutor();
 
     public Server(int port, ServerApp app) {
         this.port = port;
@@ -29,9 +32,9 @@ public class Server implements ServerInterface{
             try {
                 Socket clientSocket = this.serverSocket.accept();
                 RequestHandler requestHandler = new RequestHandler(clientSocket, this.app);
-                //Thread Pool => asynchronous
-                Thread thread = new Thread(requestHandler);
-                thread.start();
+                // Thread Pool => asynchronous
+                pool.execute(requestHandler);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

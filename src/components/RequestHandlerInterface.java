@@ -8,5 +8,5 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public interface RequestHandlerInterface {
-    Response handleRequest(Request request) throws SQLException, ParseException, IOException;
+    Response handleRequest(Request request) throws SQLException, ParseException, IOException, InterruptedException;
 }

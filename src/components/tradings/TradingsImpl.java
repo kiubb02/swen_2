@@ -73,7 +73,6 @@ public class TradingsImpl implements Tradings {
             //check if user owns this card
             if (this.tdHandler.validateOwnership(request.getUsername(), card)) {
                 //then trade can be created
-                System.out.println("hi");
                 message = this.tdHandler.createTrade(id, card, type, dmg, request.getUsername());
             }
         }

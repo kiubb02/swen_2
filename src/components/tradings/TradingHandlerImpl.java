@@ -40,9 +40,10 @@ public class TradingHandlerImpl implements TradingHandler {
                 CardToTrade = res.getString("CardToTrade");
                 Type = res.getString("Type");
                 dmg = res.getInt("MinimumDamage");
+
+                message += "\n{\"ID\":\"" + id + "\",\"CardToTrade\":\"" + CardToTrade + "\",\"Type\":\"" + Type + "\",\"MinimumDamage\":\"" + dmg + "\"}";
             }
 
-            message += "\n{\"ID\":\"" + id + "\",\"CardToTrade\":\"" + CardToTrade + "\",\"Type\":\"" + Type + "\",\"MinimumDamage\":\"" + dmg + "\"}";
 
             stmt.close();
             con.close();
