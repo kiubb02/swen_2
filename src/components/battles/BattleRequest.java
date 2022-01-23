@@ -21,6 +21,6 @@ public class BattleRequest implements RequestHandlerInterface {
         this.BattleH.getReady(request.getUsername());
         Thread.sleep(1000);
         Response res = this.Battle.start(request);
-        return new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message);
+        return res;
     }
 }

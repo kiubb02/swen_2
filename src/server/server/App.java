@@ -40,7 +40,7 @@ public class App implements ServerApp {
     }
 
     @Override
-    public Response handleRequest(Request request) throws ParseException, SQLException, IOException {
+    public Response handleRequest(Request request) throws ParseException, SQLException, IOException, InterruptedException {
         Response res = null;
 
         String[] req = request.getPathname().split("/");

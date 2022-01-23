@@ -177,7 +177,7 @@ public class BattleHandlerImpl implements BattleHandler{
             //create prepared statement
             PreparedStatement stmt = con.prepareStatement("""
                     UPDATE users
-                    SET elo=? AND won=? AND lost=?
+                    SET elo=?, won=?, lost=?
                     WHERE username=?
                     """);
 

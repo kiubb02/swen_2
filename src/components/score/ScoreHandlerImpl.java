@@ -2,25 +2,35 @@ package components.score;
 
 import db.databaseInterface;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ScoreHandlerImpl implements ScoreHandler{
 
     @Override
     public String getScore(String username) {
-        String message = "200";
+        StringBuilder message = new StringBuilder("200");
 
         try {
             Connection con = databaseInterface.getConnection(); //connect to the database
             assert con != null;
             //create prepared statement
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM ;");
+            PreparedStatement stmt = con.prepareStatement("""
+              SELECT elo, username
+              FROM users
+              ORDER BY DESC;
+              ;
+            """);
 
-            stmt.setInt(1, 5);
-
-            stmt.executeQuery();
+            ResultSet res = stmt.executeQuery();
+            while (res.next()) {
+                String elo = res.getString("elo");
+                String user = res.getString("username");
+                message.append("\n{\"Username\":\"").append(user).append("\",\"Elo\":\"").append(elo).append("\"}");
+            }
 
 
             stmt.close();
@@ -28,10 +38,10 @@ public class ScoreHandlerImpl implements ScoreHandler{
 
         } catch(SQLException e){
             System.out.println(e);
-            message = "404"; //not found
+            message = new StringBuilder("404"); //not found
         }
 
-        return message;
+        return message.toString();
     }
 
 }
