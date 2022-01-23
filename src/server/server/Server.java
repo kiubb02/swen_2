@@ -29,6 +29,7 @@ public class Server implements ServerInterface{
             try {
                 Socket clientSocket = this.serverSocket.accept();
                 RequestHandler requestHandler = new RequestHandler(clientSocket, this.app);
+                //Thread Pool => asynchronous
                 Thread thread = new Thread(requestHandler);
                 thread.start();
             } catch (IOException e) {

@@ -3,6 +3,7 @@ package server.server;
 import components.cards.cardsRequest;
 import components.deck.DeckReq;
 import components.packages.PackageRequests;
+import components.score.ScoreRequests;
 import components.sessions.SessionsRequests;
 import components.tradings.TradingReq;
 import components.transactions.TransactionReq;
@@ -29,6 +30,7 @@ public class App implements ServerApp {
     private final cardsRequest cardReq = new cardsRequest();
     private final DeckReq deckReq = new DeckReq();
     private final TradingReq tradingReq = new TradingReq();
+    private final ScoreRequests scoreReq = new ScoreRequests();
     private final Authorization auth = new Authorization();
 
     public App(){
@@ -55,7 +57,7 @@ public class App implements ServerApp {
                 case "deck", "deck?format=plain" -> res = this.deckReq.handleRequest(request);
                 // Battle Logic Start
                 case "stats" -> System.out.println("Hello Stats");
-                case "score" -> System.out.println("Hello Score");
+                case "score" -> this.scoreReq.handleRequest(request);
                 case "battles" -> System.out.println("Hello Battle");
                 //Battle Logic End
                 case "tradings" -> res = this.tradingReq.handleRequest(request);
