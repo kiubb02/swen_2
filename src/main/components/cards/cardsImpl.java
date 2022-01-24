@@ -13,8 +13,8 @@ public class cardsImpl implements cards {
     public cardHandlerImpl cardHandlerImpl = new cardHandlerImpl();
 
     @Override
-    public String createCard(String id, String name, String damage) throws ParseException, IOException, SQLException {
-        String res = this.cardHandlerImpl.create_Card(id, name, damage);
+    public String createCard(String id, String name, String damage, String desc) throws ParseException, IOException, SQLException {
+        String res = this.cardHandlerImpl.create_Card(id, name, damage, desc);
         return res;
     }
 

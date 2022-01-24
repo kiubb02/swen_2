@@ -34,6 +34,7 @@ public class PackagesImpl implements Package {
             String id = "";
             String name = "";
             String damage = "";
+            String desc = "";
 
 
             //iterate through it and create json objects
@@ -54,9 +55,10 @@ public class PackagesImpl implements Package {
                 id = object.get("Id").toString();
                 name = object.get("Name").toString();
                 damage = object.get("Damage").toString();
+                if(object.containsKey("Description")) desc = object.get("Description").toString();
 
                 //call function to insert packages to database
-                return_status = this.Card.createCard(id, name, damage);
+                return_status = this.Card.createCard(id, name, damage, desc);
                 if(return_status.equals("400")){
                     //System.out.println("This Card already exists");
                     return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, HttpStatus.BAD_REQUEST.message + " \"This Card already exists\"");

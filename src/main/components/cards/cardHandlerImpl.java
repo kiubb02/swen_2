@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
     public class cardHandlerImpl implements cardHandler {
     @Override
-    public String create_Card(String id, String name, String damage) throws SQLException {
+    public String create_Card(String id, String name, String damage, String desc) throws SQLException {
         String message = "201";
         int id_p = 0;
 
@@ -39,7 +39,7 @@ import java.sql.SQLException;
             assert con != null;
             //create prepared statement
             PreparedStatement stmt = con.prepareStatement("""
-                    INSERT INTO cards(id, name, damage, id_p, "Elements", "Type") VALUES (?,?,?, ?, ?, ?);
+                    INSERT INTO cards(id, name, damage, id_p, "Elements", "Type", "Description") VALUES (?,?,?, ?, ?, ?, ?);
                     """);
 
             stmt.setString(1, id);
@@ -59,6 +59,7 @@ import java.sql.SQLException;
             } else {
                 stmt.setString(5, "none");
             }
+            stmt.setString(6, desc);
 
             if(name.contains("Spell")){
                 stmt.setString(6, "Spell");
@@ -87,6 +88,7 @@ import java.sql.SQLException;
         String Dmg = "";
         String Element = "";
         String Type = "";
+        String Description = "";
 
         try {
             Connection con = databaseInterface.getConnection(); //connect to the database
@@ -113,8 +115,9 @@ import java.sql.SQLException;
                 Dmg = res.getString("damage");
                 Element = res.getString("Elements");
                 Type = res.getString("Type");
+                Description = res.getString("Description");
 
-                message += "\n{\"Name\":\"" + Name + "\",\"Damage\":\"" + Dmg + "\",\"Element\":\"" + Element + "\",\"Type\":\"" + Type + "\"}";
+                message += "\n{\"Name\":\"" + Name + "\",\"Damage\":\"" + Dmg + "\",\"Element\":\"" + Element + "\",\"Type\":\"" + Type + "\", \\\"Description\\\":\\\"\"" + Description + "\"\\\"}";
             }
 
 

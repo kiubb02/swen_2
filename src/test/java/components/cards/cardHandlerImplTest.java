@@ -15,10 +15,11 @@ class cardHandlerImplTest {
     String id = "845f0dc7-37d0-426e-994e-43fc3ac83c08";
     String name = "WaterGoblin";
     String damage = "10";
+    String desc = "A nice card";
 
     @Test
     void create_Card() throws SQLException {
-        assertEquals("201", cardHandlerImpl.create_Card(id, name, damage));
+        assertEquals("201", cardHandlerImpl.create_Card(id, name, damage, desc));
     }
 
     @Test

@@ -8,6 +8,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public interface cards {
-    public String createCard(String id,String name,String damage) throws ParseException, IOException, SQLException;
+    public String createCard(String id,String name,String damage, String desc) throws ParseException, IOException, SQLException;
     public Response showCards(Request request) throws SQLException;
 }
