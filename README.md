@@ -17,3 +17,12 @@ against each other in a magical card-game world.
 - the best 4 cards are selected by the user to be used in the deck.
 - the deck is used in the battles against other players.
 - a battle is a request to the server to compete against another user with your currently defined deck (see detail description below). 
+
+**Added Features:**
+- Further card classes : SkipCard
+- Further element types : Ice and Earth
+- Card Description 
+- Extended Scoreboard (Different ELO Calculation)
+- win/lose ratio in user stats
+- Player get Boosts depening on how often they have won or their opponent have lost already
+
