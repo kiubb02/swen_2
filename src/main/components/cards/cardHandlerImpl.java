@@ -52,6 +52,10 @@ import java.sql.SQLException;
                 stmt.setString(5, "Regular");
             } else if(name.contains("Fire")){
                 stmt.setString(5, "Fire");
+            } else if(name.contains("Earth")){
+                stmt.setString(5, "Earth");
+            }else if(name.contains("Ice")){
+                stmt.setString(5, "Ice");
             } else {
                 stmt.setString(5, "none");
             }

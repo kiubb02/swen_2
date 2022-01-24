@@ -170,6 +170,14 @@ public class BattleImpl implements Battle{
                 dmgCardB = dmgCardB/2;
                 dmgCardA = dmgCardA*a;
             }
+            if(first.getElement().equals("Earth") && second.getElement().equals("Fire")) {
+                dmgCardB = dmgCardB/2;
+                dmgCardA = dmgCardA*a;
+            }
+            if(first.getElement().equals("Ice") && second.getElement().equals("Water")) {
+                dmgCardB = dmgCardB/2;
+                dmgCardA = dmgCardA*a;
+            }
 
             //for cardB
             if(second.getElement().equals("Water") && first.getElement().equals("Fire")) {
@@ -184,8 +192,14 @@ public class BattleImpl implements Battle{
                 dmgCardA = dmgCardA/2;
                 dmgCardB = dmgCardB*b;
             }
-
-
+            if(second.getElement().equals("Earth") && first.getElement().equals("Fire")) {
+                dmgCardA = dmgCardA/2;
+                dmgCardB = dmgCardB*b;
+            }
+            if(second.getElement().equals("Ice") && first.getElement().equals("Water")) {
+                dmgCardA = dmgCardA/2;
+                dmgCardB = dmgCardB*b;
+            }
 
         }
 
