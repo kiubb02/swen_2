@@ -54,6 +54,13 @@ public class BattleImpl implements Battle{
             checkSpeciality(cardA, cardB);
             checkSpeciality(cardB, cardA);
 
+            //every 5 wins => boost
+            if(userwon%5 == 0) cardA.setSpecial(true);
+            if(oppwon%5 == 0) cardB.setSpecial(true);
+            //every 10 loss => boost for other player
+            if(userlost%10 == 0) cardB.setSpecial(true);
+            if(opplost%10 == 0) cardA.setSpecial(true);
+
             switch(calculateDMG(cardA, cardB)){
                 //user wins
                 case "Won" -> {
@@ -101,6 +108,7 @@ public class BattleImpl implements Battle{
         String name1 = first.getName();
         String name2 = second.getName();
 
+        //Name1
         if (name1.contains("Goblin") && name2.contains("Dragon")) {
             first.setDamage("0");
             Logger.log("Goblin too afraid to attack\n");
@@ -117,27 +125,73 @@ public class BattleImpl implements Battle{
             second.setDamage("0");
             Logger.log("Ork isnt able to attack\n");
         }
+
+        //Name2
+        if (name2.contains("Goblin") && name1.contains("Dragon")) {
+            second.setDamage("0");
+            Logger.log("Goblin too afraid to attack\n");
+        } else if (name2.contains("Knight") && name1.contains("WaterSpell")) {
+            second.setDamage("0");
+            Logger.log("Knight drowned\n");
+        } else if (name2.contains("FireElve") && name1.contains("Dragon")) {
+            first.setDamage("0");
+            Logger.log("FireElve evaded the attack\n");
+        } else if (name2.contains("Kraken") && name1.contains("Spell")) {
+            first.setDamage("0");
+            Logger.log("Kraken is immune\n");
+        } else if (name2.contains("Wizzard") && name1.contains("Ork")) {
+            first.setDamage("0");
+            Logger.log("Ork isnt able to attack\n");
+        }
     }
 
     @Override
     public String calculateDMG(Card first, Card second) {
         double dmgCardA = Double.parseDouble(first.getDamage());
         double dmgCardB = Double.parseDouble(second.getDamage());
+        int a = 2;
+        int b = 2;
+
+        //check if a special is set
+        if(first.getSpecial().equals(true)) a = 4;
+        if(second.getSpecial().equals(true)) b = 4;
 
         if(first.getType().equals("Spell") || second.getType().equals("Spell")){
+            //for cardA
             if(first.getElement().equals("Water") && second.getElement().equals("Fire")) {
                 dmgCardB = dmgCardB/2;
-                dmgCardA = dmgCardA*2;
+                dmgCardA = dmgCardA*a;
             }
             if(first.getElement().equals("Fire") && second.getElement().equals("Regular")) {
                 dmgCardB = dmgCardB/2;
-                dmgCardA = dmgCardA*2;
+                dmgCardA = dmgCardA*a;
             }
             if(first.getElement().equals("Regular") && second.getElement().equals("Water")) {
                 dmgCardB = dmgCardB/2;
-                dmgCardA = dmgCardA*2;
+                dmgCardA = dmgCardA*a;
             }
+
+            //for cardB
+            if(second.getElement().equals("Water") && first.getElement().equals("Fire")) {
+                dmgCardA = dmgCardA/2;
+                dmgCardB = dmgCardB*b;
+            }
+            if(second.getElement().equals("Fire") && first.getElement().equals("Regular")) {
+                dmgCardA = dmgCardA/2;
+                dmgCardB = dmgCardB*b;
+            }
+            if(second.getElement().equals("Regular") && first.getElement().equals("Water")) {
+                dmgCardA = dmgCardA/2;
+                dmgCardB = dmgCardB*b;
+            }
+
+
+
         }
+
+        //set speciality back
+        first.setSpecial(false);
+        second.setSpecial(false);
 
         if(dmgCardA > dmgCardB) return "Won";
         if(dmgCardA < dmgCardB) return "Lost";

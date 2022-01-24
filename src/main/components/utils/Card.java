@@ -7,6 +7,7 @@ public class Card {
     String element;
     String type;
     String name;
+    Boolean special = false;
 
     public Card(String id, String damage, String element, String type, String name) {
         this.id = id;
@@ -36,8 +37,16 @@ public class Card {
         return this.name;
     }
 
+    public Boolean getSpecial(){
+        return this.special;
+    }
+
     public void setDamage(String damage){
         this.damage = damage;
+    }
+
+    public void setSpecial(Boolean special){
+        this.special = special;
     }
 
 }

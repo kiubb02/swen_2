@@ -40,11 +40,8 @@ class TradingHandlerImplTest {
     }
 
     @Test
-    void validateOwnership() {
-    }
-
-    @Test
-    void changeOwnership() {
+    void validateOwnership() throws SQLException {
+        assertFalse(tradingHandlerImpl.validateOwnership(username, card));
     }
 
     @Test

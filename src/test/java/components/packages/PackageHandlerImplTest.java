@@ -1,16 +1,16 @@
 package components.packages;
 
+import components.cards.cardHandlerImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PackageHandlerImplTest {
 
-    @Test
-    void createPackage() {
-    }
+    public PackageHandlerImpl packageHandlerImpl = new PackageHandlerImpl();
 
     @Test
-    void openPackage() {
+    void createPackage() {
+        assertEquals("201", packageHandlerImpl.createPackage());
     }
 }

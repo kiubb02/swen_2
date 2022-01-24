@@ -16,6 +16,7 @@ public class StatsHandlerImpl implements StatsHandler{
         int elo = 0;
         int won = 0;
         int lost = 0;
+        float ratio = 0;
 
         try {
             Connection con = databaseInterface.getConnection(); //connect to the database
@@ -41,9 +42,10 @@ public class StatsHandlerImpl implements StatsHandler{
                 elo = res.getInt("elo");
                 lost = res.getInt("lost");
                 won = res.getInt("won");
+                ratio = won/lost;
             }
 
-            message += "\n{\"Name\":\"" + username + "\",\"Elo\":\"" + elo + "\",\"Won\":\"" + won + "\",\"Lost\":\"" + lost + "\"}";
+            message += "\n{\"Name\":\"" + username + "\",\"Elo\":\"" + elo + "\",\"Won\":\"" + won + "\",\"Lost\":\"" + lost + "\",\\\"Win/Loss\\\":\\\"\"" + ratio + "\"\\\"}";
 
             stmt.close();
             con.close();
