@@ -90,6 +90,9 @@ public class BattleImpl implements Battle{
                     eloUser = this.calculateELO(eloUser, eloOpp, 0.5);
                     eloOpp = this.calculateELO(eloOpp, eloUser, 0.5);
                 }
+                case "Skip" -> {
+                    Logger.log("This round will be skipped .. \n And no Elo will be changed \n");
+                }
             }
             if (oppCards.size() ==0 || userCards.size() == 0) {
                 break;
@@ -151,6 +154,10 @@ public class BattleImpl implements Battle{
         double dmgCardB = Double.parseDouble(second.getDamage());
         int a = 2;
         int b = 2;
+
+        //first check if a round will be skipped or not
+        if(first.getType().equals("Skip")) return "Skip";
+        if(second.getType().equals("Skip")) return "Skip";
 
         //check if a special is set
         if(first.getSpecial().equals(true)) a = 4;

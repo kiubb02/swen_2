@@ -59,13 +59,16 @@ import java.sql.SQLException;
             } else {
                 stmt.setString(5, "none");
             }
-            stmt.setString(6, desc);
 
             if(name.contains("Spell")){
                 stmt.setString(6, "Spell");
-            } else {
+            } else if(name.contains("Skip")){
+                stmt.setString(6, "Skip");
+            }else {
                 stmt.setString(6, "Monster");
             }
+
+            stmt.setString(7, desc);
 
             stmt.execute();
             stmt.close();
