@@ -100,3 +100,4 @@ In total I have worked on this Project for 3 months (including those timespans, 
 22. 1 => Setting up and everything for the Score Requests (2 hours)
 23. 1 => Implementing everything for the Score and Stats Requests, Battle has also been implemented but the damage and elo calculation has to be updated (14 hours)
 24. 1 => Battle fully works, Tests have been implemented as well as extra Features are added to the Game (12 hours)
+26. 1 => Corrected left over code (2 hours)
