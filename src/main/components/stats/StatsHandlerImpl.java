@@ -42,7 +42,7 @@ public class StatsHandlerImpl implements StatsHandler{
                 elo = res.getInt("elo");
                 lost = res.getInt("lost");
                 won = res.getInt("won");
-                ratio = won/lost;
+                if(lost != 0) ratio = won/lost;
             }
 
             message += "\n{\"Name\":\"" + username + "\",\"Elo\":\"" + elo + "\",\"Won\":\"" + won + "\",\"Lost\":\"" + lost + "\",\\\"Win/Loss\\\":\\\"\"" + ratio + "\"\\\"}";

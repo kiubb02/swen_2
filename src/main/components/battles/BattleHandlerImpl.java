@@ -150,7 +150,77 @@ public class BattleHandlerImpl implements BattleHandler{
     }
 
     @Override
+    public int getWon(String user) {
+        int won = 0;
+
+        try {
+            Connection con = databaseInterface.getConnection();
+            assert con != null;
+            //create prepared statement
+            PreparedStatement stmt = con.prepareStatement("""
+                    SELECT won
+                    FROM users
+                    WHERE username=?;
+                    """);
+
+            stmt.setString(1, user);
+
+            ResultSet res = stmt.executeQuery();
+
+            if(res.next()){
+                won=res.getInt("won");
+            }else{
+                return won;
+            }
+
+            res.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return won;
+    }
+
+    @Override
+    public int getLost(String user) {
+        int lost = 0;
+
+        try {
+            Connection con = databaseInterface.getConnection();
+            assert con != null;
+            //create prepared statement
+            PreparedStatement stmt = con.prepareStatement("""
+                    SELECT lost
+                    FROM users
+                    WHERE username=?;
+                    """);
+
+            stmt.setString(1, user);
+
+            ResultSet res = stmt.executeQuery();
+
+            if(res.next()){
+                lost=res.getInt("lost");
+            }else{
+                return lost;
+            }
+
+            res.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return lost;
+    }
+
+    @Override
     public void updateBattleStats(String user, int lost, int won, int elo) {
+        //get won and lost and update with the sum
+        int oldLost = this.getLost(user);
+        int oldWon = this.getWon(user);
+
         try {
             Connection con = databaseInterface.getConnection();
             assert con != null;
@@ -162,8 +232,8 @@ public class BattleHandlerImpl implements BattleHandler{
                     """);
 
             stmt.setInt(1, elo);
-            stmt.setInt(2, won);
-            stmt.setInt(3, lost);
+            stmt.setInt(2, won+oldWon);
+            stmt.setInt(3, lost+oldLost);
             stmt.setString(4, user);
 
             stmt.execute();

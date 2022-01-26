@@ -30,6 +30,7 @@ public class BattleImpl implements Battle{
 
     @Override
     public void battle(String user, String opponent) {
+        Logger.getInstance();
         //Stats
         int userwon = 0;
         int userlost = 0;
