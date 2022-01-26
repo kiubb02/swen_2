@@ -16,7 +16,7 @@ class UserImplTest {
 
         String return_status = this.userHandlerImpl.register_User(username, password);
 
-        assertEquals(return_status, "201");
+        assertEquals(return_status, "400");
     }
 
     @Test
@@ -30,15 +30,4 @@ class UserImplTest {
 
         assertEquals(return_status, "200");
     }
-
-    /*
-    @Test
-    void showUserData() throws SQLException {
-        String username = "kiukiu";
-
-        String return_status = this.userHandlerImpl.show_User(username);
-
-        assertEquals(return_status, "200 {\\\"username\\\": \\\"kiukiu\\\", \\\"Name\\\": \\\"Kiu\\\",  \\\"Bio\\\": \\\"lol\\\", \\\"Image\\\": \\\">:(\\\"}");
-    }
-    */
 }

@@ -23,7 +23,8 @@ class BattleImplTest {
     @Test
     void start() throws SQLException {
         req.setUsername("kiukiu");
-        assertEquals(new Response(HttpStatus.OK, ContentType.JSON, HttpStatus.OK.message + " \" Battle found and fought.\""), battleImpl.start(req));
+        Response res = new Response(HttpStatus.NOT_FOUND, ContentType.JSON, HttpStatus.NOT_FOUND.message + " \" No Battles Found.\"");
+        assertEquals(res.get(), battleImpl.start(req).get());
     }
 
     @Test
@@ -33,6 +34,6 @@ class BattleImplTest {
 
     @Test
     void calculateELO() {
-        assertEquals(100,battleImpl.calculateELO(100,100,1));
+        assertEquals(140,battleImpl.calculateELO(100,100,1));
     }
 }

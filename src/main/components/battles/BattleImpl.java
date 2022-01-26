@@ -87,7 +87,6 @@ public class BattleImpl implements Battle{
                 }
                 case "Draw" -> {
                     Logger.log("draw\n");
-                    //change 2 => 0.5
                     eloUser = this.calculateELO(eloUser, eloOpp, 0.5);
                     eloOpp = this.calculateELO(eloOpp, eloUser, 0.5);
                 }

@@ -23,7 +23,7 @@ class cardHandlerImplTest {
     }
 
     @Test
-    void getUserCards() {
-        assertEquals("404", "kiukiu");
+    void getUserCards() throws SQLException {
+        assertEquals("404", cardHandlerImpl.getUserCards("kiukiu"));
     }
 }

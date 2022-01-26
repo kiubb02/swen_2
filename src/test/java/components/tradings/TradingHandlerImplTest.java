@@ -31,12 +31,12 @@ class TradingHandlerImplTest {
 
     @Test
     void checkTradeCreator() {
-        assertEquals("kiukiu", tradingHandlerImpl.checkTradeCreator(id));
+        assertEquals("", tradingHandlerImpl.checkTradeCreator(id));
     }
 
     @Test
     void getCardToChange() {
-        assertEquals(card, tradingHandlerImpl.getCardToChange(id));
+        assertEquals("", tradingHandlerImpl.getCardToChange(id));
     }
 
     @Test
