@@ -15,15 +15,17 @@ This looked somewhat like that:
 ![image](https://user-images.githubusercontent.com/71399699/151027423-4c57913e-c131-4cf9-bb7f-d3a311fa83c4.png)
 
 In this image one can see that I have created a class for each needed path that is mentioned in our http requests and a single database class which was supposed to handle and host all database requests/functions (sql statements). 
+Therefore each class was responsible for everything concerning one path, which in the longer run became way too much too quickly.
 
 I thought that 
 
 ### Failure
 
-After diving a little bit deeper into the project I have noticed that my first Design should be earsed completely. It was not flexible enough, not encapsulated, not independant enough and was overall a way too shallow and trivial approach of a solution.
+After diving a little bit deeper into the project I have noticed that my first Design should be earsed completely. It was not flexible enough, not encapsulated, not independant enough and was overall a way too shallow and trivial approach of a solution. Parting everything into classes wasnt the problem, but the fact that I still tried to solve it in a way I first learned to code was.
+
 - Why did the first design fail?
 
-I was not working with interfaces at all, which excluded working with multiple inheritance, which I needed to simplify the functions like Handling Requests. That way I could inherit that into each component and avoid/bypass several if-statements and switch-cases in one class.
+I was not working with interfaces at all, which excluded working with multiple inheritance, which I needed to simplify the functions like Handling Requests. That way I could inherit that into each component and avoid/bypass several if-statements and switch-cases in one hanlde Request Function. 
 
 I overcomplicated the use of the databaseclass by making it carry all the weight, instead of parting it into a CardsHanlder , BattleHandler and so on - Class.
 
@@ -85,3 +87,16 @@ My new approach consisted of creating 5 phases. In each phase I d work on a big 
   5. Phase: Writing the Protocol
   
 I planned on taking a few days on each phase and therefore each phase took me around 2/3 days in a sum.
+In total I have worked on this Project for 3 months (including those timespans, in which I have only created database designs and more). The final implementation of my new solution after noticing that my first solution would never work out took me three weeks.
+
+7. 1 => Setting up a new Server (5 hours)
+7. 1 => Finished handling the first 13 Requests (12 Hours)
+8. 1 => Correcting mistakes of Requests 10-13 and implementing the Trading Requests (The Response included a wrong HTTP Code) (12 Hours)
+9. 1 => First go through , cleaning up code, creating more generalized Interfaces (6 hours)
+10. 1 => User Authentication changed into an authentication class, which controlls token and more based on the Request (5 hours)
+10. 1 => Started setting up the first idea of a Battle logic (6 hours) => **The Battle Logic took me the longest**
+11. 1 => Changed the Names of Files to fit the Java Namingconventions (3 hours)
+15. 1 - 17.1 => Trying to solve issues in my battle logic (7 hours each day)
+22. 1 => Setting up and everything for the Score Requests (2 hours)
+23. 1 => Implementing everything for the Score and Stats Requests, Battle has also been implemented but the damage and elo calculation has to be updated (14 hours)
+24. 1 => Battle fully works, Tests have been implemented as well as extra Features are added to the Game (12 hours)
